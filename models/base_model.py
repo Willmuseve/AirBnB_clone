@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Base model class tthat defines all common attributes/methods."""
+"""Base model class that defines all common attributes/methods."""
 from uuid import uuid4
 from datetime import datetime
 
@@ -14,8 +14,9 @@ class BaseModel:
         self.updated_at = datetime.now()
 
     def __str__(self):
-        """Return current instance's string representation."""
-        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+        """Return current instance's string representation(object)."""
+        class_name = self.__class__.__name__
+        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 
     def save(self):
         """Update updated_at field  with current datetime."""
@@ -23,8 +24,9 @@ class BaseModel:
 
     def to_dict(self):
         """Return the current instance's dictionary version."""
+        class_name = self.__class__.__name__
         instance_dict = dict(self.__dict__)
-        instance_dict['__class__'] = self.__class__.__name__
+        instance_dict['__class__'] = class_name
         instance_dict['updated_at'] = datetime.isoformat(self.updated_at)
         instance_dict['created_at'] = datetime.isoformat(self.created_at)
         return instance_dict
