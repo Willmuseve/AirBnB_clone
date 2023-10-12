@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """Tests for BaseModel."""
-import datetime
+from datetime import datetime
 import unittest
+from uuid import uuid4
 from models.base_model import BaseModel
 
 
@@ -16,8 +17,8 @@ class TestBaseModel(unittest.TestCase):
         """Test all initial values and types."""
         self.assertIsInstance(self.base_mod, BaseModel)
         self.assertIsInstance(self.base_mod.id, str)
-        self.assertIsInstance(self.base_mod.created_at, datetime.datetime)
-        self.assertIsInstance(self.base_mod.updated_at, datetime.datetime)
+        self.assertIsInstance(self.base_mod.created_at, datetime)
+        self.assertIsInstance(self.base_mod.updated_at, datetime)
 
     def test_if_updated_at_get_updated_after_calling_save(self):
         """Test updated_at field."""
@@ -38,14 +39,19 @@ class TestBaseModel(unittest.TestCase):
 
     def test_re_creation_from_dict_representation(self):
         """Test re-creation of from to_dict representation"""
-        re_created = BaseModel(self.base_mod.to_dict())
+        base_mod_dict = self.base_mod.to_dict()
+        re_created = BaseModel(**base_mod_dict)
         self.assertIsInstance(re_created, BaseModel)
-        keys_list = list(self.base_mod.to_dict())
-        for key in keys_list:
-            self.assertEqual(
-                    getattr(re_created, key),
-                    getattr(self.base_mod, key)
-                    )
+        if getattr(re_created, "__class__"):
+            raise AttributeError("__class__ from kwargs is an attribute")
+        for key in base_mod_dict.keys():
+            if key in ["created_at", "updated_at"]:
+                self.assertEqual(
+                        datetime.isoformat(getattr(re_created, key)),
+                        base_mod_dict[key]
+                )
+            else:
+                self.assertEqual(getattr(re_created, key), base_mod_dict[key])
 
 
 if __name__ == "__main__":
