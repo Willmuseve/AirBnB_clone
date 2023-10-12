@@ -2,16 +2,25 @@
 """Base model class that defines all common attributes/methods."""
 from uuid import uuid4
 from datetime import datetime
-
+import models
 
 class BaseModel:
     """Base model class."""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Construct the class."""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    setattr(self, key, value)
+                else:
+                    continue
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """Return current instance's string representation(object)."""
@@ -21,6 +30,7 @@ class BaseModel:
     def save(self):
         """Update updated_at field  with current datetime."""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """Return the current instance's dictionary version."""
