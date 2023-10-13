@@ -4,23 +4,26 @@ from uuid import uuid4
 from datetime import datetime
 import models
 
+
 class BaseModel:
     """Base model class."""
 
     def __init__(self, *args, **kwargs):
         """Construct the class."""
-
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
-                    setattr(self, key, value)
+                    if key in ["created_at", "updated_at"]:
+                        setattr(self, key, datetime.fromisoformat(value))
+                    else:
+                        setattr(self, key, value)
                 else:
                     continue
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
     def __str__(self):
         """Return current instance's string representation(object)."""
