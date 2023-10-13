@@ -3,12 +3,19 @@ import json
 import cmd
 import models
 from models import *
+from models.basemodel import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """class definition which creates an interactive section with the prompt"""
 
     prompt = "(hbnb) "
+
+    classes = {
+            'BaseModel' : BaseModel,
+            'User' : User
+            }
 
     def do_quit(self, param):
         """Quits the program"""
@@ -27,12 +34,13 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance of the BaseModel, saves it to the json file
         and prints the id"""
 
+        param = param.split()
         if not param:
             print("** class name missing **")
-        elif param not in models.classes:
+        elif param[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            new_inst = models.classes[param]()
+            new_inst = self.classes[param]()
             new_inst.save()
             print(new_inst.id)
 
@@ -43,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
         param = param.split()
         if not param:
             print("** class name missing **")
-        elif param[0] not in models.classes:
+        elif param[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(param) < 2:
             print("** instance id missing **")
@@ -62,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
         param = param.split()
         if not param:
             print("** class name missing **")
-        elif param[0] not in models.classes:
+        elif param[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(param) < 2:
             print("** instance id missing **")
@@ -83,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
         objects = models.storage.all()
         if not param:
             print([str(obj) for obj in objects.values()])
-        elif param[0] not in models.classes:
+        elif param[0] not in self.classes:
             print("** class doesn't exist **")
         else:
             print([str(obj) for key, obj in objects.items() if\
@@ -96,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
         param = param.split()
         if not param:
             print("** class name missing **")
-        elif param[0] not in models.classes:
+        elif param[0] not in self.classes:
             print("** class doesn't exist **")
         elif len(param) < 2:
             print("** instance id missing **")
