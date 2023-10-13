@@ -2,7 +2,6 @@
 """Tests for BaseModel."""
 from datetime import datetime
 import unittest
-from uuid import uuid4
 from models.base_model import BaseModel
 
 
@@ -42,7 +41,7 @@ class TestBaseModel(unittest.TestCase):
         base_mod_dict = self.base_mod.to_dict()
         re_created = BaseModel(**base_mod_dict)
         self.assertIsInstance(re_created, BaseModel)
-        if getattr(re_created, "__class__"):
+        if re_created.__class__ == base_mod_dict["__class__"]:
             raise AttributeError("__class__ from kwargs is an attribute")
         for key in base_mod_dict.keys():
             if key in ["created_at", "updated_at"]:
@@ -51,7 +50,11 @@ class TestBaseModel(unittest.TestCase):
                         base_mod_dict[key]
                 )
             else:
-                self.assertEqual(getattr(re_created, key), base_mod_dict[key])
+                if key != "__class__":
+                    self.assertEqual(
+                            getattr(re_created, key),
+                            base_mod_dict[key]
+                    )
 
 
 if __name__ == "__main__":

@@ -1,21 +1,25 @@
 #!/usr/bin/python3
-
+"""Console module."""
 import cmd
 
-class HBNBCommand(cmd.Cmd()):
-    """ class definition which creates an interactive session with the
-    console """
+
+class HBNBCommand(cmd.Cmd):
+    """Class definition which creates an interactive session with the.
+
+    console.
+    """
 
     prompt = "(hbnb) "
 
     def do_quit(self, param):
-        """quits the program anf exits """
+        """Quit the program anf exits."""
         return True
 
     def do_EOF(self, param):
-        """also quits the program"""
+        """Also quits the program."""
         print("Exiting the program")
         return True
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
