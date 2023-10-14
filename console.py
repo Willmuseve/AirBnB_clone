@@ -51,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
         elif param[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            new_inst = self.classes[param]()
+            new_inst = self.classes[param[0]]()
             new_inst.save()
             print(new_inst.id)
 
