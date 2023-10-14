@@ -93,6 +93,25 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
 
+    def do_count(self, param):
+        """
+        Count the number of instances of a specific class.
+        """
+        param = param.split('.')
+        if len(param) != 2:
+            print("Invalid syntax")
+            return
+        class_name = param[0]
+        method = param[1]
+
+        if class_name in self.classes and method == 'count':
+            objects = models.storage.all()
+            count = len([obj for key, obj in objects.items() if
+                key.split('.')[0] == class_name])
+            print(count)
+        else:
+            print("** class doesn't exist **")
+    
     def do_all(self, param):
         """Prints all string representation of all instances
         based or not on the class name"""
