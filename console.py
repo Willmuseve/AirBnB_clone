@@ -3,13 +3,9 @@
 import json
 import cmd
 import models
-<<<<<<< HEAD
 from models import *
 from models import storage
-from models.basemodel import BaseModel
-=======
 from models.base_model import BaseModel
->>>>>>> 083f597d0e5edefbed4b1293c8863f9800ef907b
 from models.user import User
 from models.state import State
 from models.city import City
@@ -124,7 +120,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, param):
         """Print all string representation of all instances.
-
         The representation is based or not on the class name
         """
         param = param.split()
@@ -135,8 +130,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
             class_name = param[0]
-            print([str(obj) for key, obj in objects.items() if
-                obj.__class__.__name__ == class_name])
+            print([str(obj) for key, obj in objects.items() if obj.__class__.
+                __name__ == class_name])
 
     def do_update(self, param):
         """Update an instance.
