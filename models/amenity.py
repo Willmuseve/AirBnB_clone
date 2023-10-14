@@ -1,9 +1,10 @@
-#!/usr/bin/python3
-"""Amenity module."""
+#!usr/bin/python3
+
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Amenity class."""
+    """Class amenity that inherits from the basemodel
+    and has public attribute name"""
 
     name = ""
