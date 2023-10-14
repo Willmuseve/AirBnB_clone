@@ -1,13 +1,13 @@
-#!/usr/bin/python3
-"""Place module."""
+#!/user/bin/python3
+
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """Place class."""
+    """Class place that inherits from base model"""
 
-    city_id = ""
-    user_id = ""
+    city_id = ""  # It will be the City.id
+    user_id = ""  # It will be the User.id
     name = ""
     description = ""
     number_rooms = 0
@@ -16,4 +16,4 @@ class Place(BaseModel):
     price_by_night = 0
     latitude = 0.0
     longitude = 0.0
-    amenity_ids = []
+    amenity_ids = []  # It will be a list of Amenity.id later
