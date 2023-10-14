@@ -6,26 +6,26 @@ import models
 from models import *
 from models.basemodel import BaseModel
 from models.user import User
+from models.state import State
 from models.city import City
+from models.places import Places
 from models.amenity import Amenity
-from models.place import Place
-from models.review import Revies
-
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """class definition which creates an interactive section with the prompt/console"""
-
+    """class that creates an interactive session with the prompt"""
 
     prompt = "(hbnb) "
 
     classes = {
-            'BaseModel' : BaseModel,
-            'User' : User,
-            'City': City,
-            'Amenity': Amenity,
-            'Place': Place,
-            'Review': Review}
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review}
 
     def do_quit(self, param):
         """Quits the program"""
@@ -104,8 +104,8 @@ class HBNBCommand(cmd.Cmd):
         elif param[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            print([str(obj) for key, obj in objects.items() if\
-                 key.split('.')[0] == param[0]])
+            print([str(obj) for key, obj in objects.items() if
+                key.split('.')[0] == param[0]])
 
     def do_update(self, param):
         """Updates an instance based on the class name and id by adding or
