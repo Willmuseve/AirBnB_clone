@@ -4,6 +4,7 @@ import json
 import cmd
 import models
 from models import *
+from models import storage
 from models.basemodel import BaseModel
 from models.user import User
 from models.state import State
@@ -125,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             class_name = param[0]
             print([str(obj) for key, obj in objects.items() if
-                key.split('.')[0] == class_name])
+                obj.__class__.__name__ == class_name])
 
     def do_update(self, param):
         """Updates an instance based on the class name and id by adding or
