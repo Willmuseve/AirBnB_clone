@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""FileStorage Module."""
 import os
 import json
 from models.base_model import BaseModel
@@ -8,8 +8,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
-from model.place import Place
-
+from models.place import Place
 
 
 class FileStorage:
@@ -22,16 +21,16 @@ class FileStorage:
     __objects = {}
 
     classes = {
-        "BaseModel": BaseModel,
-        "user": User,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity,
-        "Place": Place,
-        "Review": Review}
+            "BaseModel": BaseModel,
+            "user": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review}
 
     def all(self):
-        """ Returns the dictionary __objects """
+        """Return the dictionary __objects."""
         return self.__objects
 
     def new(self, obj):
@@ -40,7 +39,8 @@ class FileStorage:
         self.__objects[key] = obj
 
     def save(self):
-        """Serializes __objects to the JSON file (path: __file_path)
+        """Serialize __objects to the JSON file (path: __file_path).
+
         Saves user object along with other objects
         """
         objects_dict = {}
@@ -50,7 +50,7 @@ class FileStorage:
             json.dump(objects_dict, file)
 
     def reload(self):
-        """ Deserializes the JSON file to __objects"""
+        """Deserialize the JSON file to __objects."""
         if os.path.exists(self.__file_path):
             try:
                 with open(self.__file_path, 'r', encoding='utf-8') as file:
