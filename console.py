@@ -103,8 +103,9 @@ class HBNBCommand(cmd.Cmd):
         elif param[0] not in self.classes:
             print("** class doesn't exist **")
         else:
+            class_name = param[0]
             print([str(obj) for key, obj in objects.items() if
-                key.split('.')[0] == param[0]])
+                key.split('.')[0] == class_name])
 
     def do_update(self, param):
         """Updates an instance based on the class name and id by adding or
