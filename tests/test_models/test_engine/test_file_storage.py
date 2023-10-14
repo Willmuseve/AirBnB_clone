@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 from unittest import TestCase, main
 from models.engine.file_storage import FileStorage
-from models import storage
 
 
 class TestFileStorage(TestCase):

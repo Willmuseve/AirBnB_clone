@@ -1,21 +1,25 @@
 #!/usr/bin/python3
-
+"""Custom airbnb console."""
 import json
 import cmd
 import models
+<<<<<<< HEAD
 from models import *
 from models import storage
 from models.basemodel import BaseModel
+=======
+from models.base_model import BaseModel
+>>>>>>> 083f597d0e5edefbed4b1293c8863f9800ef907b
 from models.user import User
 from models.state import State
 from models.city import City
-from models.places import Places
+from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """class that creates an interactive session with the prompt"""
+    """Class that creates an interactive session with the prompt."""
 
     prompt = "(hbnb) "
 
@@ -29,36 +33,39 @@ class HBNBCommand(cmd.Cmd):
             "Review": Review}
 
     def do_quit(self, param):
-        """Quits the program"""
+        """Quit the program."""
         return True
 
     def do_EOF(self, param):
-        """Exits the program with an exit message"""
-
+        """Exit the program with an exit message."""
         print("Exiting the session ...bye")
         return True
 
     def emptyline(self):
+        """Handle emptyline input."""
         pass
 
     def do_create(self, param):
-        """Creates a new instance of the BaseModel, saves it to the json file
-        and prints the id"""
+        """Create a new instance of the BaseModel.
 
+        Saves it to the json file
+        and prints the id
+        """
         param = param.split()
         if not param:
             print("** class name missing **")
         elif param[0] not in self.classes:
             print("** class doesn't exist **")
         else:
-            new_inst = self.classes[param]()
+            new_inst = self.classes[param[0]]()
             new_inst.save()
             print(new_inst.id)
 
     def do_show(self, param):
-        """prints the string representration of an instance based on the
-        class name and id"""
+        """Print the string representation of an instance.
 
+        The representation is based on the class name and id
+        """
         param = param.split()
         if not param:
             print("** class name missing **")
@@ -75,9 +82,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, param):
-        """Deletes an instance based on the class name and id
-        and saves the changes into the JSON file"""
+        """Delete an instance.
 
+        Deletion is based on the class name and id
+        and saves the changes into the JSON file
+        """
         param = param.split()
         if not param:
             print("** class name missing **")
@@ -95,9 +104,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_count(self, param):
-        """
-        Count the number of instances of a specific class.
-        """
+        """Count the number of instances of a specific class."""
         param = param.split('.')
         if len(param) != 2:
             print("Invalid syntax")
@@ -107,16 +114,19 @@ class HBNBCommand(cmd.Cmd):
 
         if class_name in self.classes and method == 'count':
             objects = models.storage.all()
-            count = len([obj for key, obj in objects.items() if
-                key.split('.')[0] == class_name])
+            count = len([
+                obj for key, obj in objects.items() if
+                key.split('.')[0] == class_name
+                ])
             print(count)
         else:
             print("** class doesn't exist **")
-    
-    def do_all(self, param):
-        """Prints all string representation of all instances
-        based or not on the class name"""
 
+    def do_all(self, param):
+        """Print all string representation of all instances.
+
+        The representation is based or not on the class name
+        """
         param = param.split()
         objects = models.storage.all()
         if not param:
@@ -129,9 +139,11 @@ class HBNBCommand(cmd.Cmd):
                 obj.__class__.__name__ == class_name])
 
     def do_update(self, param):
-        """Updates an instance based on the class name and id by adding or
-        updating attribute(saves the change ubto the JSON file)"""
+        """Update an instance.
 
+        The update process is based on the class name and id by adding or
+        updating attribute(saves the change ubto the JSON file)
+        """
         param = param.split()
         if not param:
             print("** class name missing **")
