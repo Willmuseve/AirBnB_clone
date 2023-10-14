@@ -164,7 +164,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
             attribute_name = param[2]
-            attribute_value = param[3]
+            attribute_value = param[3].strip('""')
 
             try:
                 attribute_value = eval(attribute_value)
