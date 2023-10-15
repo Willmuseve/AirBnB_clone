@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """FileStorage Module."""
-import os
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -40,7 +39,6 @@ class FileStorage:
 
     def save(self):
         """Serialize __objects to the JSON file (path: __file_path).
-
         Saves user object along with other objects
         """
         objects_dict = {}
@@ -51,7 +49,6 @@ class FileStorage:
 
     def reload(self):
         """Deserialize the JSON file to __objects."""
-        if os.path.exists(self.__file_path):
             try:
                 with open(self.__file_path, 'r', encoding='utf-8') as file:
                     objects_dict = json.load(file)
