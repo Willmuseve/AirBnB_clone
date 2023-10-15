@@ -12,6 +12,7 @@ from models.place import Place
 
 class FileStorage:
     """A class that serializes instances to a JSON file and deserializes.
+
     JSON file to instances
     """
 
@@ -38,6 +39,7 @@ class FileStorage:
 
     def save(self):
         """Serialize __objects to the JSON file (path: __file_path).
+
         Saves user object along with other objects
         """
         objects_dict = {}
@@ -48,7 +50,6 @@ class FileStorage:
 
     def reload(self):
         """Deserialize the JSON file to __objects."""
-
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as file:
                 objects_dict = json.load(file)
@@ -57,8 +58,8 @@ class FileStorage:
                     if class_name in self.classes:
                         obj = self.classes[class_name](**obj_dict)
                         self.__objects[key] = obj
-            except FileNotFoundError:
-                pass
+        except FileNotFoundError:
+            pass
 
 
 if __name__ == "__main__":
